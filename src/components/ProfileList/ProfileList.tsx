@@ -2,6 +2,7 @@ import React from 'react';
 import { useQuery } from 'react-query';
 import getLinkedinProfiles from '../../api/getLinkedinProfiles/getLinkedinProfiles';
 import { LinkedInProfileProps } from '../../types/linkedinProfileProps';
+import Profile from './Profile/Profile';
 
 const ProfileList = () => {
   const { data, isLoading, isError } = useQuery<LinkedInProfileProps[]>(
@@ -16,16 +17,9 @@ const ProfileList = () => {
   if (isError) {
     return <div>Error fetching LinkedIn profiles</div>;
   }
-
   return (
-    <div>
-      {data &&
-        data.map((profile) => (
-          <div key={profile.id}>
-            <h2>{profile.fullName}</h2>
-            <p>{profile.linkedinHeadline}</p>
-          </div>
-        ))}
+    <div className="max-h-1200 overflow-y-scroll">
+      {data && data.map((profile) => <Profile {...profile} />)}
     </div>
   );
 };
