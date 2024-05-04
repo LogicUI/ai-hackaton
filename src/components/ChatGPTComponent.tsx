@@ -19,7 +19,7 @@ export default function ChatGPTComponent() {
     <div className="flex flex-col items-center p-4 bg-accent-light rounded-md h-[50em] shadow-md w-80">
       <h2 className="text-lg font-semibold mb-2">Need Suggestions?</h2>
       <p className="text-sm text-gray-500 mb-4">
-        Feel free to ask our AI about recommend profiles
+        Feel free to ask our chatbot for recommended profiles
       </p>
 
       <button
@@ -49,8 +49,8 @@ export default function ChatGPTComponent() {
         <textarea
           className="w-full mb-2 px-4 py-2 bg-white rounded-md border border-gray-300 focus:border-primary focus:ring-primary"
           placeholder="Type your message..."
-          rows="6"
-          cols="50"
+          rows={parseInt('6')}
+          cols={50}
           value={message}
           onChange={handleInputChange}
         />
