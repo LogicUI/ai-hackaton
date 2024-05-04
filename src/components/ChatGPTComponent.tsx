@@ -13,8 +13,6 @@ export default function ChatGPTComponent() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(message);
-    // Add your submit logic here
   };
 
   return (
@@ -51,6 +49,8 @@ export default function ChatGPTComponent() {
         <textarea
           className="w-full mb-2 px-4 py-2 bg-white rounded-md border border-gray-300 focus:border-primary focus:ring-primary"
           placeholder="Type your message..."
+          rows="6"
+          cols="50"
           value={message}
           onChange={handleInputChange}
         />
