@@ -1,26 +1,34 @@
 import React from 'react';
 import { LinkedInProfileProps } from '../../../types/linkedinProfileProps';
 import Avatar, { genConfig } from 'react-nice-avatar';
+import Link from 'next/link';
 
 const Profile: React.FC<LinkedInProfileProps> = (profile) => {
   const config = genConfig(profile.fullName);
+  const profileData = encodeURIComponent(JSON.stringify(profile));
 
   return (
-    <div key={profile.fullName}>
-      <Avatar className="w-32 h-32" {...config} shape="square" />
+    <div key={profile.fullName} className="basis-2/5 shadow-md p-3 mb-2">
+      <Avatar className="w-full h-64 rounded" {...config} shape="rounded" />
       <h3 className="mt-6 text-lg font-semibold leading-8 text-gray-900">
         {profile.fullName}
       </h3>
       <p className="text-base leading-7 text-gray-600">
         {profile.linkedinHeadline}
       </p>
-      <p className="mt-4 text-base leading-7 text-gray-600">
-        {profile.experience}
-      </p>
-      <div role="list" className="mt-6 flex gap-x-6">
+      <div className="mt-2 text-base leading-7 text-gray-600 text-wrap">
+        <span className="font-semibold"> Location:</span> {profile.location}
+      </div>
+      <div className="mt-2 text-base leading-7 text-gray-600 text-wrap">
+        <span className="font-semibold"> Language Spoken:</span>{' '}
+        {profile.languages}
+      </div>
+      <div role="list" className="mt-6 flex gap-x-6 items-center	">
         <div>
           <a
             href={profile.linkedinProfileUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-gray-400 hover:text-gray-500"
           >
             <span className="sr-only">LinkedIn</span>
@@ -38,6 +46,17 @@ const Profile: React.FC<LinkedInProfileProps> = (profile) => {
             </svg>
           </a>
         </div>
+        <Link
+          href={`/profile/[id]?profile=${profileData}`}
+          as={`/profile/${profile.id}`}
+        >
+          <button
+            type="button"
+            className="rounded-md bg-indigo-50 px-3 py-2 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-100"
+          >
+            View Full Profile
+          </button>
+        </Link>
       </div>
     </div>
   );
