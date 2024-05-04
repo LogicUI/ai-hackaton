@@ -1,4 +1,4 @@
-export interface LinkedInProfile {
+export interface LinkedInProfileProps {
   linkedinProfileUrl: string;
   fullName: string;
   firstName: string;
