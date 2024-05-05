@@ -5,7 +5,7 @@ import { LinkedInProfileProps } from '../../types/linkedinProfileProps';
 import Profile from './Profile/Profile';
 import { DotLoader } from 'react-spinners';
 
-const ProfileList = () => {
+const ProfileList = ({ gptResponse }: { gptResponse: any }) => {
   const { data, isLoading, isError } = useQuery<LinkedInProfileProps[]>(
     'linkedinProfiles',
     getLinkedinProfiles,
@@ -22,6 +22,24 @@ const ProfileList = () => {
   if (isError) {
     return <div>Error fetching LinkedIn profiles</div>;
   }
+
+  if (gptResponse.length > 0) {
+    const [first] = gptResponse;
+    const [ids] = first;
+    const valuesId = ids.text.value;
+    const filteredList = data?.filter((profile) =>
+      valuesId.includes(profile.id),
+    );
+    return (
+      <div className="overflow-y-scroll flex justify-between flex-wrap max-h-[50rem]">
+        {filteredList &&
+          filteredList.map((profile, index) => (
+            <Profile key={index} {...profile} />
+          ))}
+      </div>
+    );
+  }
+
   return (
     <div className="overflow-y-scroll flex justify-between flex-wrap max-h-[50rem]">
       {data &&

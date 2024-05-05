@@ -53,7 +53,7 @@ const Profile: React.FC<LinkedInProfileProps> = (profile) => {
   return (
     <div
       key={profile.fullName}
-      className="basis-1/2 shadow-lg p-4 mb-3 bg-white rounded-lg border border-slate-300	"
+      className="basis-1/2 p-4 mb-3 bg-white rounded-lg drop-shadow-lg	"
     >
       <Avatar className="w-32 h-32 mx-auto rounded-full" {...config} />
       <h3 className="mt-4 text-xl font-semibold text-center text-gray-900">
