@@ -23,13 +23,14 @@ const ProfileList = ({ gptResponse }: { gptResponse: any }) => {
     return <div>Error fetching LinkedIn profiles</div>;
   }
 
-  if (gptResponse.length > 0) {
+  if (data && gptResponse.length > 0) {
     const [first] = gptResponse;
     const [ids] = first;
-    const valuesId = ids.text.value;
-    const filteredList = data?.filter((profile) =>
-      valuesId.includes(profile.id),
-    );
+    const valuesId = JSON.parse(ids.text.value);
+    const valuedArray = valuesId.map(Number);
+    const filteredList = data.filter((profile) => {
+      return valuedArray.includes(profile.id);
+    });
     return (
       <div className="overflow-y-scroll flex justify-between flex-wrap max-h-[50rem]">
         {filteredList &&
