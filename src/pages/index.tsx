@@ -11,7 +11,7 @@ export default function Index() {
           <div className="w-2/6 mt-24 ml-6">
             <RecommendedText />
           </div>
-          <div className="w-3/4 mt-24">
+          <div className="w-3/4">
             <ProfileList />
           </div>
         </article>

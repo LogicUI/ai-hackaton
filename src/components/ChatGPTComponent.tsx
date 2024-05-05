@@ -16,7 +16,7 @@ export default function ChatGPTComponent() {
   };
 
   return (
-    <div className="flex flex-col items-center p-4 bg-accent-light rounded-md h-[50em] shadow-md w-80">
+    <div className="flex flex-col items-center p-4 bg-accent-light rounded-md h-[40em] shadow-md w-80">
       <h2 className="text-lg font-semibold mb-2">Need Suggestions?</h2>
       <p className="text-sm text-gray-500 mb-4">
         Feel free to ask our chatbot for recommended profiles

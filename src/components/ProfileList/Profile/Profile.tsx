@@ -1,41 +1,100 @@
 import React from 'react';
 import { LinkedInProfileProps } from '../../../types/linkedinProfileProps';
 import Avatar, { genConfig } from 'react-nice-avatar';
-import Link from 'next/link';
+import {
+  FaLaptopCode,
+  FaBaby,
+  FaResearchgate,
+  FaSeedling,
+  FaShoppingCart,
+  FaServer,
+  FaBriefcase,
+} from 'react-icons/fa';
+import { CgWebsite } from 'react-icons/cg';
+import { LiaRobotSolid } from 'react-icons/lia';
+import { TbMoodKid } from 'react-icons/tb';
+import { CiMobile1 } from 'react-icons/ci';
+import { GrUserManager } from 'react-icons/gr';
+import { BsCloudArrowUpFill } from 'react-icons/bs';
+import { SiCoinmarketcap } from 'react-icons/si';
 
 const Profile: React.FC<LinkedInProfileProps> = (profile) => {
   const config = genConfig(profile.fullName);
-  const profileData = encodeURIComponent(JSON.stringify(profile));
+  const { experience, about } = profile;
+  const listOfExperience = experience.split(', ');
+
+  const getIcon = (exp: string) => {
+    const iconMap: { [key: string]: JSX.Element } = {
+      marketing: <SiCoinmarketcap />,
+      mobile: <CiMobile1 />,
+      backend: <FaServer />,
+      junior: <TbMoodKid />,
+      machine: <LiaRobotSolid />,
+      management: <GrUserManager />,
+      'E-Commerce': <FaShoppingCart />,
+      researcher: <FaResearchgate />,
+      cloud: <BsCloudArrowUpFill />,
+      software: <FaLaptopCode />,
+      startup: <FaSeedling />,
+      web: <CgWebsite />,
+      consulting: <FaBriefcase />,
+      intern: <FaBaby />,
+    };
+
+    for (const key in iconMap) {
+      if (exp.toLowerCase().includes(key)) {
+        return iconMap[key];
+      }
+    }
+
+    return null;
+  };
 
   return (
-    <div key={profile.fullName} className="basis-2/5 shadow-md p-3 mb-2">
-      <Avatar className="w-full h-64 rounded" {...config} shape="rounded" />
-      <h3 className="mt-6 text-lg font-semibold leading-8 text-gray-900">
+    <div
+      key={profile.fullName}
+      className="basis-1/2 shadow-lg p-4 mb-3 bg-white rounded-lg border border-slate-300	"
+    >
+      <Avatar className="w-32 h-32 mx-auto rounded-full" {...config} />
+      <h3 className="mt-4 text-xl font-semibold text-center text-gray-900">
         {profile.fullName}
       </h3>
-      <p className="text-base leading-7 text-gray-600">
+      <p className="text-sm text-center text-gray-600">
         {profile.linkedinHeadline}
       </p>
-      <div className="mt-2 text-base leading-7 text-gray-600 text-wrap">
-        <span className="font-semibold"> Location:</span> {profile.location}
+      <div className="mt-4 text-center">
+        <h4 className="text-lg font-semibold text-gray-900">Experiences</h4>
+        <div className=" text-gray-800">
+          {listOfExperience.map((exp) => (
+            <div key={exp} className="mt-3 flex text-left">
+              {getIcon(exp)} <span className="ml-2">{exp}</span>
+            </div>
+          ))}
+        </div>
       </div>
-      <div className="mt-2 text-base leading-7 text-gray-600 text-wrap">
-        <span className="font-semibold"> Language Spoken:</span>{' '}
-        {profile.languages}
+      <div className="mt-4 text-sm text-gray-800">
+        <strong>Location:</strong> {profile.location}
       </div>
-      <div role="list" className="mt-6 flex gap-x-6 items-center	">
-        <div>
-          <a
-            href={profile.linkedinProfileUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-400 hover:text-gray-500"
+      <div className="mt-1 text-sm text-gray-800">
+        <strong>Languages Spoken:</strong> {profile.languages}
+      </div>
+      <p className="mt-4 text-sm text-gray-800">
+        <strong>About:</strong> {about}
+      </p>
+      <div className="flex justify-center mt-6">
+        <a
+          href={profile.linkedinProfileUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-indigo-600 hover:text-indigo-700"
+        >
+          <button
+            type="button"
+            className="rounded-md flex items-center bg-indigo-50 px-3 py-2 text-sm font-medium text-indigo-600 shadow-sm hover:bg-indigo-100"
           >
-            <span className="sr-only">LinkedIn</span>
             <svg
-              className="h-5 w-5"
+              className="h-5 w-5 mr-2"
               aria-hidden="true"
-              fill="currentColor"
               viewBox="0 0 20 20"
             >
               <path
@@ -44,19 +103,9 @@ const Profile: React.FC<LinkedInProfileProps> = (profile) => {
                 clipRule="evenodd"
               />
             </svg>
-          </a>
-        </div>
-        <Link
-          href={`/profile/[id]?profile=${profileData}`}
-          as={`/profile/${profile.id}`}
-        >
-          <button
-            type="button"
-            className="rounded-md bg-indigo-50 px-3 py-2 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-100"
-          >
             View Full Profile
           </button>
-        </Link>
+        </a>
       </div>
     </div>
   );
